@@ -24,8 +24,8 @@
 
 ## How to compile and test | Cómo compilar y probar
 
-**[EN]** If you are in a Linux environment (like Fedora, Arch, or Kali), you can compile this project using GCC:
-**[ES]** Si estás en un entorno Linux (como Fedora, Arch o Kali), puedes compilar este proyecto usando GCC:
+**[EN]** If you are in a Linux environment (like Fedora, Mint or Debian), you can compile this project using GCC:
+**[ES]** Si estás en un entorno Linux (como Fedora, Mint o Debian), puedes compilar este proyecto usando GCC:
 
 1. Clone this repository | Clona este repositorio:
 ```bash
