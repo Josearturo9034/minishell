@@ -51,15 +51,15 @@ g++ main.cpp -o minishell
 ## Roadmap | Hoja de Ruta (Next steps / Próximos pasos)
 
 **[EN]**
-- [ ] Implement child process creation using `fork()`.
-- [ ] Execute system binaries (like `ls`, `nmap`, or `python`) using `execvp()`.
-- [ ] Control process synchronization with `waitpid()`.
+- [X] Implement child process creation using `fork()`.
+- [X] Execute system binaries (like `ls`, `nmap`, or `python`) using `execvp()`.
+- [X] Control process synchronization with `waitpid()`.
 - [ ] Develop built-in commands like `cd` using `chdir()`.
 
 **[ES]**
-- [ ] Implementar la creación de procesos hijos usando `fork()`.
-- [ ] Ejecutar binarios del sistema (como `ls`, `nmap` o `python`) usando `execvp()`.
-- [ ] Controlar la sincronización de procesos con `waitpid()`.
+- [X] Implementar la creación de procesos hijos usando `fork()`.
+- [X] Ejecutar binarios del sistema (como `ls`, `nmap` o `python`) usando `execvp()`.
+- [X] Controlar la sincronización de procesos con `waitpid()`.
 - [ ] Desarrollar comandos integrados (built-ins) como `cd` utilizando `chdir()`.
 
 ---
