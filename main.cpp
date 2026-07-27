@@ -5,59 +5,47 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-int main(){
-    std::string entrada;
+int main() {
+    std::string input;
 
-    while (true){
+    while (true) {
         std::cout << "minishell> ";
         
-        if (!std::getline(std::cin, entrada)){
+        if (!std::getline(std::cin, input)) { break; }
+        if (input.empty()) { continue; }
+        if (input == "exit" || input == "Exit") {
+            std::cout << "Closing minishell...\n";
             break;
         }
 
-        if (entrada.empty()){
-            continue;
+        std::vector<std::string> arguments;
+        std::stringstream ss(input);
+        std::string word;
+
+        while(ss >> word) { arguments.push_back(word); }
+        if (arguments.empty()) { continue; }
+
+        std::vector<char*> c_arguments;
+        for (size_t i = 0; i < arguments.size(); i++) {
+            c_arguments.push_back(const_cast<char*>(arguments[i].c_str()));
         }
-
-        if (entrada == "exit" || entrada == "Exit"){
-            std::cout << "Cerrando minishell...\n";
-            break;
-        }
-
-        std::vector<std::string> argumentos;
-        std::stringstream ss(entrada);
-        std::string palabra;
-
-        while(ss >> palabra){
-            argumentos.push_back(palabra);
-        }
-
-        if (argumentos.empty()) {
-            continue;
-        }
-
-
-        std::vector<char*> c_argumentos;
-        for (size_t i = 0; i < argumentos.size(); i++){
-            c_argumentos.push_back(const_cast<char*>(argumentos[i].c_str()));
-        }
-        c_argumentos.push_back(nullptr);
+        c_arguments.push_back(nullptr);
 
         pid_t pid = fork();
-		if (pid < 0){
-			std::cerr << "Error: no se pudo crear el proceso hijo.\n";
-			exit(1);
-		}
-		else if(pid == 0){
-			execvp(c_argumentos[0], c_argumentos.data());
 
-			std::cerr << "minishell: comando no encontrado\n";
-			exit(1);
-		}
-		else {
-		int estado;
-		waitpid(pid, &estado, 0);
-		}
+        if (pid < 0) {
+            std::cerr << "Error: Failed to create child process.\n";
+        } 
+        else if (pid == 0) {
+            execvp(c_arguments[0], c_arguments.data());
+            
+            std::cerr << "minishell: command not found\n";
+            exit(1);
+        } 
+        else {
+            int status;
+            waitpid(pid, &status, 0);
+        }
     }
 
     return 0;
