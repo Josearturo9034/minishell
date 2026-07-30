@@ -31,6 +31,17 @@ int main() {
         }
         c_arguments.push_back(nullptr);
 
+        if (std::string(c_arguments[0]) == "cd") {
+            if (c_arguments[1] == nullptr) {
+                std::cerr << "minishell: expected argument to \"cd\"\n";
+            } else {
+                if (chdir(c_arguments[1]) != 0) {
+                    std::cerr << "minishell: cd: " << c_arguments[1] << ": No such file or directory\n";
+                }
+            }
+            continue;
+        }
+
         pid_t pid = fork();
 
         if (pid < 0) {
